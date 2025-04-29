@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pixel-arrow-icon-arrow-button-arrow-icon-with-8bit-style_1199668-858-removebg-preview_0: 611217959004999063
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

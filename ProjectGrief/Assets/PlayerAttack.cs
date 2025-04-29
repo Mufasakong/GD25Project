@@ -6,6 +6,8 @@ public class PlayerAttack : MonoBehaviour
 {
     public static event Action OnAttackStarted;
     public static event Action OnAttackFinished;
+    public static event Action OnHit;
+    public static event Action OnMiss;
 
     [SerializeField] private PlayableDirector director; // Drag in inspector
     [SerializeField] private PlayableAsset attackTimeline;
@@ -88,7 +90,13 @@ public class PlayerAttack : MonoBehaviour
         if (enemy != null && damage > 0)
         {
             enemy.TakeDamage(damage);
+            OnHit?.Invoke();
         }
+        else
+        {
+            OnMiss?.Invoke();
+        }
+
 
         Debug.Log($"Slider evaluated at {sliderValue}. Multiplier: {multiplier:F2}, Damage: {damage}");
 
