@@ -16,26 +16,32 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpRequested;
 
     private bool isGrounded; // To store whether the player is grounded or not
+    
+    private Animator animator;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
+
 
     private void Update()
     {
-        // Perform the ground check to see if the player is on the ground using a Raycast
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckRadius, groundLayer);
 
-        // If in platformer mode, check for movement and jump input
+        Vector2 animInput = movementInput.normalized;
+
+        animator.SetFloat("MoveX", animInput.x);
+        animator.SetFloat("MoveY", animInput.y);
+        animator.SetBool("IsMoving", animInput.sqrMagnitude > 0.01f);
+
         if (platformerMode)
         {
-            movementInput.y = 0; // Ensure no vertical movement is input when in platformer mode
+            movementInput.y = 0;
 
-            if (jumpRequested && isGrounded) // Check if we're grounded before allowing the jump
+            if (jumpRequested && isGrounded)
             {
-                //ResetInputs();
-                 // Reset jump
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 jumpRequested = false;
             }
