@@ -1857,9 +1857,11 @@ MonoBehaviour:
       forgetful, a little eccentric. But the light in his eyes dimmed faster than
       anyone expected.\n\r\n\"He used to call me \u2018Zeke the Brave.\u2019 Now
       he can\u2019t even say my name.\""
+    sprite: {fileID: 0}
     options: []
   - narrativeText: Eziekel watched the man who once built toy trains and told bedtime
       ghost stories shrink into whispers and distant stares. What do you do?
+    sprite: {fileID: 0}
     options:
     - choiceText: Stay and read him his favorite book.
       resultText: "Eziekel opened *The Whispering Pines*... 'I\u2019ll read it again
@@ -1875,8 +1877,12 @@ MonoBehaviour:
   - narrativeText: "Days later, the call came. They said Grandpa Mortimer Graves
       had passed peacefully in his sleep. But Eziekel didn\u2019t believe it. Not
       truly."
+    sprite: {fileID: 0}
     options: []
-  typingSpeed: 0.08
+  typingSpeed: 0.02
+  playAtStart: 1
+  deactivateAtEnd: 0
+  targetSpriteRenderer: {fileID: 0}
 --- !u!4 &1432481822
 Transform:
   m_ObjectHideFlags: 0
