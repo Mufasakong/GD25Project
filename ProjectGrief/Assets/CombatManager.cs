@@ -22,6 +22,14 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private PlayableDirector enemyAttackStartTimeline;
     [SerializeField] private PlayableDirector enemyAttackEndTimeline;
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip missSound;
+    [SerializeField] private AudioClip damageSound;
+    [SerializeField] private AudioSource audioSource;
+
     private void OnEnable()
     {
         Player.OnPlayerDied += HandlePlayerDied;
@@ -60,6 +68,7 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log("Player died. Playing death timeline.");
         PlayTimeline(playerDeathTimeline);
+        PlaySound(loseSound);
     }
 
     private void HandlePlayerRespawn()
@@ -71,12 +80,17 @@ public class CombatManager : MonoBehaviour
     private void HandlePlayerHealthChanged(int current, int max)
     {
         Debug.Log($"Player health: {current}/{max}");
-        // Optional: Play a damage flash timeline or UI response
+
+        if (current < max)
+        {
+            PlaySound(damageSound);
+        }
     }
 
     private void HandlePlayerMiss()
     {
-       PlayTimeline(playerMissTimeline);
+        PlayTimeline(playerMissTimeline);
+        PlaySound(missSound);
     }
 
     private void HandlePlayerAttackStarted()
@@ -89,12 +103,14 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log("Player attack finished.");
         PlayTimeline(playerAttackFinishTimeline);
+        PlaySound(hitSound);
     }
 
     private void HandleEnemyDied(Enemy enemy)
     {
         Debug.Log($"{enemy.name} died.");
         PlayTimeline(enemyDeathTimeline);
+        PlaySound(winSound);
     }
 
     private void HandleEnemyHealthChanged(Enemy enemy, int current, int max)
@@ -114,15 +130,23 @@ public class CombatManager : MonoBehaviour
         PlayTimeline(enemyAttackEndTimeline);
     }
 
-    public void PlayTimeline(PlayableDirector tl) {
+    public void PlayTimeline(PlayableDirector tl)
+    {
         if (tl == null)
         {
             //Debug.LogWarning("Timeline is null! Did you forget to assign it in the Inspector?");
             return;
         }
 
-
         tl?.Stop();
         tl?.Play();
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }
