@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Debug.Log($"{enemyName} died.");
+        director.time = director.duration;
         OnEnemyDied?.Invoke(this);
     }
 
