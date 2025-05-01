@@ -156,7 +156,7 @@ public class DialogueManager : MonoBehaviour
         continueButton.onClick.RemoveAllListeners();
         continueButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("EntryScene");
+            SceneManager.LoadScene("IntroScene");
         });
     }
 }

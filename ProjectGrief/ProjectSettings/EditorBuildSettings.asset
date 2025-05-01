@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TextScene.unity
     guid: 91435291edc2ff74c9ad251942d5a339
   - enabled: 1
+    path: Assets/Scenes/IntroScene.unity
+    guid: a1e51c9526f21334994afdaf28d0d940
+  - enabled: 1
     path: Assets/Scenes/EntryScene.unity
     guid: b9709daf5db6c7a40ac2918fd3ac8cfe
   - enabled: 1

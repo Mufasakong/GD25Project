@@ -8,7 +8,7 @@ public class BattleTrigger : MonoBehaviour
     public string targetSpawnPointAfterBattle;
 
     [Header("UI and Audio")]
-    public GameObject battlePrompt;  // "Press E to start battle"
+    public GameObject battlePrompt;
     public AudioClip battleStartSound;
 
     private bool playerInZone = false;

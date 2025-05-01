@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DepressionGhost2_0: -816684457485424677
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

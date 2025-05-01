@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MortimerPortrait5_0: 9128784119526786378
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

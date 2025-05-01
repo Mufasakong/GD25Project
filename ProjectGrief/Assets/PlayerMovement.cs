@@ -7,15 +7,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private bool platformerMode = false;
 
-    [SerializeField] private Transform groundCheck; // Reference to the ground check transform
-    [SerializeField] private float groundCheckRadius = 0.2f; // Radius of the check
-    [SerializeField] private LayerMask groundLayer; // Ground layer mask for filtering
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
 
     private Vector2 movementInput;
     private Rigidbody2D rb;
     private bool jumpRequested;
 
-    private bool isGrounded; // To store whether the player is grounded or not
+    private bool isGrounded;
     
     private Animator animator;
 
@@ -29,12 +29,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckRadius, groundLayer);
-        /*
+
         Vector2 animInput = movementInput.normalized;
 
         animator.SetFloat("MoveX", animInput.x);
         animator.SetFloat("MoveY", animInput.y);
-        animator.SetBool("IsMoving", animInput.sqrMagnitude > 0.01f);*/
+        animator.SetBool("IsMoving", animInput.sqrMagnitude > 0.01f);
 
         if (platformerMode)
         {
@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Smooth move
             float targetX = movementInput.x * moveSpeed;
-            float smoothedX = Mathf.Lerp(rb.linearVelocity.x, targetX, 0.1f); // 0.1f = smoothing amount
+            float smoothedX = Mathf.Lerp(rb.linearVelocity.x, targetX, 0.1f);
 
             rb.linearVelocity = new Vector2(smoothedX, rb.linearVelocity.y);
 
