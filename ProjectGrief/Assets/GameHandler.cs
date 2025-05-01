@@ -137,5 +137,6 @@
         {
             Debug.Log("All ghosts captured! The painting is restored.");
             OnAllGhostsCaptured?.Invoke();
-        }
+            SceneManager.LoadScene("EndScene");
+    }
     }
