@@ -2433,6 +2433,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124965632}
+  - component: {fileID: 2124965633}
   m_Layer: 0
   m_Name: Ghostbargaining
   m_TagString: Untagged
@@ -2457,6 +2458,20 @@ Transform:
   - {fileID: 357026205}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2124965633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124965631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de9659eaee0bc44a992d0e1558a35b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 8434542633523972043, guid: 50ff3ba321a9cf44fa99ac1f0fa5d7bd, type: 3}
+  ghostName: BargainingGhost
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

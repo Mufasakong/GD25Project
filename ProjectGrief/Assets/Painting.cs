@@ -29,6 +29,14 @@ public class Painting : MonoBehaviour
 
     public void Restore()
     {
-        GameHandler.Instance.OnGhostCaptured();
+            Enemy[] allEnemiesInScene = FindObjectsOfType<Enemy>(true);
+            foreach (Enemy enemy in allEnemiesInScene)
+            {
+                if (enemy.gameObject.activeInHierarchy)
+                {
+                    GameHandler.Instance.OnGhostCaptured(enemy);
+                    break;
+                }
+            }
     }
 }

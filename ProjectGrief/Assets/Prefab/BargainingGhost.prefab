@@ -5224,7 +5224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2292360358508082433}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 0
@@ -5251,7 +5251,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d8c993fe272c1ff41bd663e2bd40354c, type: 2}
   - {fileID: 11400000, guid: 235dec328b773e8408033b2338d94f32, type: 2}
   rageTimelines: []
-  maxHealth: 100
+  maxHealth: 50
   rageMultiplier: 1.2
   enemyName: BargainingGhost
 --- !u!320 &638248850029754653
