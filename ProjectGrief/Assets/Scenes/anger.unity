@@ -2399,6 +2399,7 @@ MonoBehaviour:
   targetSpawnPointAfterBattle: 
   battlePrompt: {fileID: 405804994}
   battleStartSound: {fileID: 0}
+  enemyGhost: {fileID: 1192679652343039786, guid: 429160b1752059c4aab807aaa695d410, type: 3}
 --- !u!61 &2121626320
 BoxCollider2D:
   m_ObjectHideFlags: 0

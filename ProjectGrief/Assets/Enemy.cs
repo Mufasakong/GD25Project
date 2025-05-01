@@ -55,17 +55,21 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
-    }
+    }   
 
     private void Die()
     {
         Debug.Log($"{enemyName} died.");
-        director.time = director.duration;
         OnEnemyDied?.Invoke(this);
+        director.time = director.duration;
+        director.Stop();
     }
 
     public void Attack()
     {
+        if (currentHealth <= 0)
+            return;
+
         List<PlayableAsset> availableTimelines = timelines;
 
         float healthPercent = (float)currentHealth / maxHealth;
