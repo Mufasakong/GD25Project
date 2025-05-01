@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +12,9 @@ public class BattleTrigger : MonoBehaviour
     [Header("UI and Audio")]
     public GameObject battlePrompt;  // "Press E to start battle"
     public AudioClip battleStartSound;
+
+    public static Action<Enemy> OnBattleStart;
+    public Enemy enemyGhost;
 
     private bool playerInZone = false;
 
@@ -53,6 +58,7 @@ public class BattleTrigger : MonoBehaviour
 
     private void StartBattle()
     {
+        OnBattleStart?.Invoke(enemyGhost);
         SceneManager.LoadScene(battleSceneName);
     }
 }
