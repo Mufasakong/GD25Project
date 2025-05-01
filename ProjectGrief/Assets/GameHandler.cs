@@ -18,7 +18,20 @@
 
         private List<string> capturedGhostNames = new List<string>();
 
-        private void OnEnable()
+    private HashSet<string> scenesWithDialoguePlayed = new HashSet<string>();
+
+    public bool HasDialoguePlayed(string sceneName)
+    {
+        return scenesWithDialoguePlayed.Contains(sceneName);
+    }
+
+    public void MarkDialoguePlayed(string sceneName)
+    {
+        if (!scenesWithDialoguePlayed.Contains(sceneName))
+            scenesWithDialoguePlayed.Add(sceneName);
+    }   
+
+    private void OnEnable()
         {
             BattleTrigger.OnBattleStart += HandleBattleStart;
             CombatManager.OnBattleEnd += HandleBattleEnd;
