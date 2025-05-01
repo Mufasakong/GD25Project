@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6353313541960920449
 Transform:
   m_ObjectHideFlags: 0
@@ -54,9 +54,9 @@ MonoBehaviour:
   timelines:
   - {fileID: 11400000, guid: a2a0485efbaa1164bb203654c060321a, type: 2}
   rageTimelines: []
-  maxHealth: 1
+  maxHealth: 1000
   rageMultiplier: 1.2
-  enemyName: Depro Ghost
+  enemyName: Acceptance
 --- !u!320 &102188279387476091
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -72,22 +72,22 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: 3314443047599753196, guid: e393e3734073ea942a80e42162d13aa3, type: 2}
+  - key: {fileID: 2921548132083330216, guid: f35151838d7df2e41903b77a996f8ece, type: 2}
     value: {fileID: 0}
-  - key: {fileID: -7611020438447082332, guid: 5e8b16001f68ba446a52d84cd385b75d, type: 2}
+  - key: {fileID: 2921548132083330216, guid: 91b09ffed98003140be25b3494383eb1, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 4805537882469131466, guid: 73af6bc6eae48cb4ab4bc323c32305aa, type: 2}
-    value: {fileID: 7181379779804031223}
-  - key: {fileID: -6101744302436939615, guid: 73af6bc6eae48cb4ab4bc323c32305aa, type: 2}
-    value: {fileID: 4585986395090822995}
-  - key: {fileID: -8826059833451122081, guid: 73af6bc6eae48cb4ab4bc323c32305aa, type: 2}
-    value: {fileID: 653869008956135405}
-  - key: {fileID: -9019353343753141017, guid: c843b3b6f3f05bc479fc889068626a85, type: 2}
-    value: {fileID: 4585986395090822995}
-  - key: {fileID: -1562892646327873192, guid: c843b3b6f3f05bc479fc889068626a85, type: 2}
+  - key: {fileID: -8990129539033411108, guid: a67bb948fcb22a74798adc117a138a87, type: 2}
     value: {fileID: 0}
-  - key: {fileID: -689720142862451511, guid: 73af6bc6eae48cb4ab4bc323c32305aa, type: 2}
-    value: {fileID: 1953304112670035760}
+  - key: {fileID: 4791629687598783943, guid: a67bb948fcb22a74798adc117a138a87, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -843100801759473910, guid: a67bb948fcb22a74798adc117a138a87, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8883870762763318909, guid: a67bb948fcb22a74798adc117a138a87, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7543517272092202489, guid: a67bb948fcb22a74798adc117a138a87, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 2410214710593785493, guid: a67bb948fcb22a74798adc117a138a87, type: 2}
+    value: {fileID: 0}
   - key: {fileID: -182619222382440964, guid: a2a0485efbaa1164bb203654c060321a, type: 2}
     value: {fileID: 0}
   - key: {fileID: 3440807421887543458, guid: a2a0485efbaa1164bb203654c060321a, type: 2}
@@ -102,10 +102,8 @@ PlayableDirector:
     value: {fileID: 0}
   m_ExposedReferences:
     m_References:
-    - d619451980a7bfc40a37bcc9c966a470: {fileID: 0}
-    - ac8c4400b5dd28a448b2a34b268a6ad8: {fileID: 0}
-    - 7e36236c7e939cb49a75a521e0f299f6: {fileID: 993799347002297377}
-    - 6f408a5ec49857043bbc789f27a1996c: {fileID: 0}
+    - 96769bd30af35f74d8d72c7c7a56c922: {fileID: 0}
+    - bf4bc5ad06704ff48ab69147966ac290: {fileID: 0}
 --- !u!114 &462721513838805940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +117,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Events:
-    m_Signals: []
-    m_Events: []
+    m_Signals:
+    - {fileID: 11400000, guid: 79887d89b3679fb44b964b89b631c635, type: 2}
+    - {fileID: 11400000, guid: 380c9dc7c33074b48a31c7f19ef990e5, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls: []
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Painting, Assembly-CSharp
+          m_MethodName: Restore
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!95 &4585986395090822995
 Animator:
   serializedVersion: 7

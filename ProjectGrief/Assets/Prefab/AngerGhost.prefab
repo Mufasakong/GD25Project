@@ -1048,7 +1048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6359363254324321256
 Transform:
   m_ObjectHideFlags: 0
@@ -1057,7 +1057,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3820109354926596353}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 0
@@ -1088,7 +1088,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 982685a4ada338846a684d3656d359d5, type: 2}
   - {fileID: 11400000, guid: 039eb1cddc95e384a89333d3ba25d28e, type: 2}
   - {fileID: 11400000, guid: 275702828f05d274eaa6536dabe9318e, type: 2}
-  maxHealth: 120
+  maxHealth: 50
   rageMultiplier: 2
   enemyName: AngryGhost
 --- !u!320 &9176222322471869069

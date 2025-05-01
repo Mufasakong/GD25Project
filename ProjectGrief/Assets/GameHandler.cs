@@ -8,18 +8,25 @@ public class GameHandler : MonoBehaviour
     public static GameHandler Instance;
     public static event Action OnGhostsCaptured;
     public static event Action OnAllGhostsCaptured;
+    
 
     private Enemy currentEnemy;
     public int ghostsRemaining = 5;
 
+    private Vector3 lastPlayerPosition;
+    private string lastSceneName;
+
+
     private void OnEnable()
     {
         BattleTrigger.OnBattleStart += HandleBattleStart;
+        CombatManager.OnBattleEnd += HandleBattleEnd;
     }
 
     private void OnDisable()
     {
         BattleTrigger.OnBattleStart -= HandleBattleStart;
+        CombatManager.OnBattleEnd -= HandleBattleEnd;
     }
 
     private void Awake()
@@ -43,8 +50,7 @@ public class GameHandler : MonoBehaviour
 
         if (currentEnemy != null)
         {
-            Enemy[] allEnemiesInScene = FindObjectsOfType<Enemy>(true); // include inactive
-
+            Enemy[] allEnemiesInScene = FindObjectsOfType<Enemy>(true);
             foreach (Enemy enemy in allEnemiesInScene)
             {
                 bool isMatch = enemy.enemyName == currentEnemy.enemyName;
@@ -55,8 +61,18 @@ public class GameHandler : MonoBehaviour
                     Debug.Log("Activated enemy: " + enemy.name);
                 }
             }
+
+            // Restore player position if we're back in the original scene
+            if (scene.name == lastSceneName && Player.Instance != null)
+            {
+                Player.Instance.transform.position = lastPlayerPosition;
+                Debug.Log("Restored player to previous position.");
+            }
+
+            currentEnemy = null; // Optional: clear this after handling
         }
     }
+
 
     private void OnDestroy()
     {
@@ -67,6 +83,15 @@ public class GameHandler : MonoBehaviour
     {
         currentEnemy = enemy;
         Debug.Log("Battle starting with: " + enemy.name);
+
+        lastSceneName = SceneManager.GetActiveScene().name;
+        lastPlayerPosition = Player.Instance.transform.position;
+    }
+
+    private void HandleBattleEnd()
+    {
+        Debug.Log("Battle ended. Returning to: " + lastSceneName);
+        SceneManager.LoadScene(lastSceneName);
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

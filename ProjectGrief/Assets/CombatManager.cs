@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
 public class CombatManager : MonoBehaviour
 {
+    public static event Action OnBattleEnd;
+
     [Header("Player Timelines")]
     [SerializeField] private PlayableDirector playerDeathTimeline;
     [SerializeField] private PlayableDirector playerRespawnTimeline;
@@ -45,6 +49,11 @@ public class CombatManager : MonoBehaviour
         Enemy.OnHealthChanged -= HandleEnemyHealthChanged;
         Enemy.OnEnemyAttackStarted -= HandleEnemyAttackStarted;
         Enemy.OnEnemyAttackEnded -= HandleEnemyAttackEnded;
+    }
+
+    public void EndBattle()
+    {
+        OnBattleEnd?.Invoke();
     }
 
     private void HandlePlayerDied()
