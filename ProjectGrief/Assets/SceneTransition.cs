@@ -1,15 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SceneTransition : MonoBehaviour
 {
     [Header("Scene Transition Settings")]
     public string sceneToLoad;
     public string targetSpawnPoint;
+    public int requiredGhostsCaptured = 0;
 
     [Header("UI and Audio")]
     public AudioClip doorSound;
-    public GameObject enterPrompt;
+    public GameObject enterPrompt;           // Text object like "Press E to Enter"
+    public GameObject lockedMessageText;     // Text object like "The room is locked for now"
 
     private bool playerInZone = false;
 
@@ -17,40 +20,55 @@ public class SceneTransition : MonoBehaviour
     {
         if (playerInZone && Input.GetKeyDown(KeyCode.E))
         {
-            GameManager.spawnPointName = targetSpawnPoint;
+            int ghostsCaptured = GameHandler.Instance != null ? 5 - GameHandler.Instance.ghostsRemaining : 0;
 
-            if (doorSound != null)
+            if (ghostsCaptured >= requiredGhostsCaptured)
             {
-                AudioSource.PlayClipAtPoint(doorSound, transform.position);
+                GameManager.spawnPointName = targetSpawnPoint;
+
+                if (doorSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(doorSound, transform.position);
+                }
+
+                if (enterPrompt != null)
+                    enterPrompt.SetActive(false);
+
+                if (lockedMessageText != null)
+                    lockedMessageText.SetActive(false);
+
+                Invoke("LoadScene", 0.5f);
             }
-
-            if (enterPrompt != null)
-                enterPrompt.SetActive(false);
-
-            Invoke("LoadScene", 0.5f);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInZone = true;
+        if (!other.CompareTag("Player")) return;
 
-            if (enterPrompt != null)
-                enterPrompt.SetActive(true);
-        }
+        playerInZone = true;
+
+        int ghostsCaptured = GameHandler.Instance != null ? 5 - GameHandler.Instance.ghostsRemaining : 0;
+        bool doorIsOpen = ghostsCaptured >= requiredGhostsCaptured;
+
+        if (enterPrompt != null)
+            enterPrompt.SetActive(doorIsOpen);
+
+        if (lockedMessageText != null)
+            lockedMessageText.SetActive(!doorIsOpen);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInZone = false;
+        if (!other.CompareTag("Player")) return;
 
-            if (enterPrompt != null)
-                enterPrompt.SetActive(false);
-        }
+        playerInZone = false;
+
+        if (enterPrompt != null)
+            enterPrompt.SetActive(false);
+
+        if (lockedMessageText != null)
+            lockedMessageText.SetActive(false);
     }
 
     private void LoadScene()
