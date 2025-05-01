@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
         PlayerAttack.OnAttackFinished += HandleAttackFinished;
         director.stopped += OnTimelineFinished;
         Player.OnPlayerRespawned += HandlePlayerRespawn;
+        Player.OnPlayerDied += HandlePlayerDead;
     }
 
     private void OnDisable()
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour
         PlayerAttack.OnAttackFinished -= HandleAttackFinished;
         director.stopped -= OnTimelineFinished;
         Player.OnPlayerRespawned -= HandlePlayerRespawn;
+        Player.OnPlayerDied -= HandlePlayerDead;
     }
 
     private void Start()
@@ -107,6 +109,12 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log($"{enemyName}'s timeline ended.");
         OnEnemyAttackEnded?.Invoke(this);
+    }
+
+    private void HandlePlayerDead()
+    {
+        director.time = director.duration;
+        //director.Stop();
     }
 
     private void HandlePlayerRespawn()

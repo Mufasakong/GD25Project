@@ -5,6 +5,7 @@ public class CombatManager : MonoBehaviour
 {
     [Header("Player Timelines")]
     [SerializeField] private PlayableDirector playerDeathTimeline;
+    [SerializeField] private PlayableDirector playerRespawnTimeline;
 
     [Header("PlayerAttack Timelines")]
     [SerializeField] private PlayableDirector playerMissTimeline;
@@ -20,7 +21,10 @@ public class CombatManager : MonoBehaviour
     private void OnEnable()
     {
         Player.OnPlayerDied += HandlePlayerDied;
+        Player.OnPlayerRespawned += HandlePlayerRespawn;
         Player.OnHealthChanged += HandlePlayerHealthChanged;
+
+        PlayerAttack.OnMiss += HandlePlayerMiss;
         PlayerAttack.OnAttackStarted += HandlePlayerAttackStarted;
         PlayerAttack.OnAttackFinished += HandlePlayerAttackFinished;
 
@@ -46,7 +50,13 @@ public class CombatManager : MonoBehaviour
     private void HandlePlayerDied()
     {
         Debug.Log("Player died. Playing death timeline.");
-        playerDeathTimeline?.Play();
+        PlayTimeline(playerDeathTimeline);
+    }
+
+    private void HandlePlayerRespawn()
+    {
+        Debug.Log("Player respawn");
+        PlayTimeline(playerRespawnTimeline);
     }
 
     private void HandlePlayerHealthChanged(int current, int max)
@@ -55,22 +65,27 @@ public class CombatManager : MonoBehaviour
         // Optional: Play a damage flash timeline or UI response
     }
 
+    private void HandlePlayerMiss()
+    {
+       PlayTimeline(playerMissTimeline);
+    }
+
     private void HandlePlayerAttackStarted()
     {
         Debug.Log("Player attack started.");
-        playerAttackStartTimeline?.Play();
+        PlayTimeline(playerAttackStartTimeline);
     }
 
     private void HandlePlayerAttackFinished()
     {
         Debug.Log("Player attack finished.");
-        playerAttackFinishTimeline?.Play();
+        PlayTimeline(playerAttackFinishTimeline);
     }
 
     private void HandleEnemyDied(Enemy enemy)
     {
         Debug.Log($"{enemy.name} died.");
-        enemyDeathTimeline?.Play();
+        PlayTimeline(enemyDeathTimeline);
     }
 
     private void HandleEnemyHealthChanged(Enemy enemy, int current, int max)
@@ -81,12 +96,24 @@ public class CombatManager : MonoBehaviour
     private void HandleEnemyAttackStarted(Enemy enemy)
     {
         Debug.Log($"{enemy.name} attack started.");
-        enemyAttackStartTimeline?.Play();
+        PlayTimeline(enemyAttackStartTimeline);
     }
 
     private void HandleEnemyAttackEnded(Enemy enemy)
     {
         Debug.Log($"{enemy.name} attack ended.");
-        enemyAttackEndTimeline?.Play();
+        PlayTimeline(enemyAttackEndTimeline);
+    }
+
+    public void PlayTimeline(PlayableDirector tl) {
+        if (tl == null)
+        {
+            //Debug.LogWarning("Timeline is null! Did you forget to assign it in the Inspector?");
+            return;
+        }
+
+
+        tl?.Stop();
+        tl?.Play();
     }
 }
