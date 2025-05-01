@@ -1539,8 +1539,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: EntryScene
   targetSpawnPoint: spawn_anger
+  requiredGhostsCaptured: 0
   doorSound: {fileID: 8300000, guid: 98879205992df4f4aa75551abe7f6595, type: 3}
   enterPrompt: {fileID: 331385682}
+  lockedMessageText: {fileID: 0}
 --- !u!61 &1314054746
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1792,6 +1794,40 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1397815772}
     m_Modifications:
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[0].narrativeText
+      value: "You\u2019re the one slamming doors... "
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[1].narrativeText
+      value: "the voice that shouts in my head. Why won\u2019t you just go away?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[2].narrativeText
+      value: Go away? I kept you strong.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[3].narrativeText
+      value: ' I kept you standing when the tears wanted to drag you down.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[4].narrativeText
+      value: "Don\u2019t act like you didn\u2019t need me."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[5].narrativeText
+      value: "You think grief is just sadness? No. It\u2019s rage. It\u2019s unfair.
+        And you know it."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[6].narrativeText
+      value: "You think grief is just sadness? No. It\u2019s rage. It\u2019s unfair.
+        And you know it."
+      objectReference: {fileID: 0}
     - target: {fileID: 6120835920806609054, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1858,7 +1894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120835920806609054, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -500
+      value: -426
       objectReference: {fileID: 0}
     - target: {fileID: 6120835920806609054, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

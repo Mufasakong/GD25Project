@@ -28,14 +28,16 @@ public class DialogueManager : MonoBehaviour
     public List<DialogueNode> dialogueNodes;
     public float typingSpeed = 0.02f;
 
-    private int currentNodeIndex = 0;
-    private string fullText = "";
-    private bool isTyping = false;
-
     public bool playAtStart = true;
     public bool deactivateAtEnd = false;
 
     public Image targetSpriteRenderer;
+
+    private int currentNodeIndex = 0;
+    private string fullText = "";
+    private bool isTyping = false;
+
+    private PlayerMovement playerMovement;
 
     void Start()
     {
@@ -47,9 +49,19 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        // Find and disable PlayerMovement
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                playerMovement.enabled = false;
+            }
+        }
 
         if (playAtStart)
-        DisplayNode(currentNodeIndex);
+            DisplayNode(currentNodeIndex);
     }
 
     void DisplayNode(int index)
@@ -65,6 +77,7 @@ public class DialogueManager : MonoBehaviour
         DialogueNode node = dialogueNodes[index];
         fullText = node.narrativeText;
 
+        // Update sprite
         if (targetSpriteRenderer != null)
         {
             if (node.sprite != null)
@@ -75,14 +88,13 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 targetSpriteRenderer.sprite = null;
-                targetSpriteRenderer.gameObject.SetActive(false); 
+                targetSpriteRenderer.gameObject.SetActive(false);
             }
         }
 
         if (continueButton != null)
             continueButton.gameObject.SetActive(false);
 
-        // Reset all buttons
         if (choiceButtons != null)
         {
             foreach (var button in choiceButtons)
@@ -96,7 +108,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        // Start typing the main narrative
         StartCoroutine(TypeText(fullText, () =>
         {
             if (node.options == null || node.options.Count == 0)
@@ -112,7 +123,6 @@ public class DialogueManager : MonoBehaviour
             {
                 for (int i = 0; i < node.options.Count; i++)
                 {
-                    // SAFETY CHECK: Ensure button exists
                     if (i >= choiceButtons.Count || choiceButtons[i] == null)
                     {
                         Debug.LogWarning($"Choice button at index {i} is missing.");
@@ -126,7 +136,6 @@ public class DialogueManager : MonoBehaviour
                     btn.gameObject.SetActive(true);
                     btn.interactable = true;
 
-                    // SAFETY CHECK: Make sure there's a TextMeshProUGUI in children
                     var textComponent = btn.GetComponentInChildren<TextMeshProUGUI>();
                     if (textComponent != null)
                     {
@@ -143,7 +152,6 @@ public class DialogueManager : MonoBehaviour
             }
         }));
     }
-
 
     void OnChoiceSelected(int choiceIndex)
     {
@@ -205,7 +213,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         if (continueButton != null)
-        continueButton.gameObject.SetActive(false);
+            continueButton.gameObject.SetActive(false);
 
         currentNodeIndex++;
 
@@ -224,13 +232,19 @@ public class DialogueManager : MonoBehaviour
             GameHandler.Instance.MarkDialoguePlayed(sceneName);
         }
 
-        if (deactivateAtEnd)
-        gameObject.SetActive(false);
+        if (playerMovement != null)
+        {
+            playerMovement.ResetInputs();
+            playerMovement.enabled = true;
+        }
 
-        //dialogueText.text = "Eziekel looks to the horizon. One last visit to the manor...";
+        if (deactivateAtEnd)
+            gameObject.SetActive(false);
+
         dialogueText.text = "";
 
-        if (choiceButtons != null) {
+        if (choiceButtons != null)
+        {
             foreach (var button in choiceButtons)
             {
                 button.gameObject.SetActive(false);

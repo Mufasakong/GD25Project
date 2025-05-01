@@ -230,6 +230,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1747957189}
     m_Modifications:
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[0].narrativeText
+      value: "If I had visited more\u2026 if I had stayed just a little longer...
+        maybe he\u2019d still be here."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[1].narrativeText
+      value: Is there anything I can do to fix this?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[2].narrativeText
+      value: "There\u2019s always a deal to be made, right? A trade. A sacrifice."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[3].narrativeText
+      value: "Give me your time, your guilt, your \u2018what ifs\u2019\u2014and I\u2019ll
+        give you hope."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[4].narrativeText
+      value: "But it\u2019s empty, Ezekiel. You know that. You\u2019re not talking
+        to him. You\u2019re talking to yourself."
+      objectReference: {fileID: 0}
     - target: {fileID: 6120835920806609054, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -874,8 +901,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: EntryScene2
   targetSpawnPoint: Spawn_Bargaining
+  requiredGhostsCaptured: 0
   doorSound: {fileID: 8300000, guid: 98879205992df4f4aa75551abe7f6595, type: 3}
   enterPrompt: {fileID: 1306989389}
+  lockedMessageText: {fileID: 0}
 --- !u!61 &595487247
 BoxCollider2D:
   m_ObjectHideFlags: 0

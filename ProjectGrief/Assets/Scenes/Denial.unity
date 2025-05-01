@@ -151,8 +151,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneToLoad: EntryScene
   targetSpawnPoint: spawn_denial
+  requiredGhostsCaptured: 0
   doorSound: {fileID: 8300000, guid: 98879205992df4f4aa75551abe7f6595, type: 3}
   enterPrompt: {fileID: 6501801475828659402}
+  lockedMessageText: {fileID: 0}
 --- !u!61 &154874097
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2739,6 +2741,27 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5156336192744367879}
     m_Modifications:
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[0].narrativeText
+      value: "You\u2019re not real. Grandpa\u2019s not\u2026 gone. He\u2019s just...
+        resting, right?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[1].narrativeText
+      value: '"If he were gone, why do you still hear his voice in every room?'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[2].narrativeText
+      value: Why do you still wait for his footsteps?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294467169128543478, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
+      propertyPath: dialogueNodes.Array.data[3].narrativeText
+      value: "He\u2019s not gone. He\u2019s just... somewhere else."
+      objectReference: {fileID: 0}
     - target: {fileID: 6120835920806609054, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2805,7 +2828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6120835920806609054, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -500
+      value: -426
       objectReference: {fileID: 0}
     - target: {fileID: 6120835920806609054, guid: 64e6bdc2ed0b8c04688f35042f5a1fda, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
