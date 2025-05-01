@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
     public class DialogueNode
     {
         [TextArea] public string narrativeText;
+        public Sprite sprite;
         public List<DialogueOption> options;
     }
 
@@ -31,44 +32,110 @@ public class DialogueManager : MonoBehaviour
     private string fullText = "";
     private bool isTyping = false;
 
+    public bool playAtStart = true;
+    public bool deactivateAtEnd = false;
+
+    public Image targetSpriteRenderer;
+
     void Start()
     {
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (GameHandler.Instance != null && GameHandler.Instance.HasDialoguePlayed(sceneName))
+        {
+            gameObject.SetActive(false); // Dialogue already played, skip this object
+            return;
+        }
+
+
+        if (playAtStart)
         DisplayNode(currentNodeIndex);
     }
 
     void DisplayNode(int index)
     {
         StopAllCoroutines();
+
+        if (index >= dialogueNodes.Count)
+        {
+            Debug.LogWarning("Index out of bounds in dialogueNodes.");
+            return;
+        }
+
         DialogueNode node = dialogueNodes[index];
         fullText = node.narrativeText;
 
-        continueButton.gameObject.SetActive(false);
-
-        foreach (var button in choiceButtons)
+        if (targetSpriteRenderer != null)
         {
-            button.gameObject.SetActive(false);
-            button.onClick.RemoveAllListeners();
-            button.interactable = false;
+            if (node.sprite != null)
+            {
+                targetSpriteRenderer.sprite = node.sprite;
+                targetSpriteRenderer.gameObject.SetActive(true);
+            }
+            else
+            {
+                targetSpriteRenderer.sprite = null;
+                targetSpriteRenderer.gameObject.SetActive(false); 
+            }
         }
 
+        if (continueButton != null)
+            continueButton.gameObject.SetActive(false);
+
+        // Reset all buttons
+        if (choiceButtons != null)
+        {
+            foreach (var button in choiceButtons)
+            {
+                if (button != null)
+                {
+                    button.gameObject.SetActive(false);
+                    button.onClick.RemoveAllListeners();
+                    button.interactable = false;
+                }
+            }
+        }
+
+        // Start typing the main narrative
         StartCoroutine(TypeText(fullText, () =>
         {
-            if (node.options.Count == 0)
+            if (node.options == null || node.options.Count == 0)
             {
-                continueButton.gameObject.SetActive(true);
-                continueButton.onClick.RemoveAllListeners();
-                continueButton.onClick.AddListener(AdvanceDialogue);
+                if (continueButton != null)
+                {
+                    continueButton.gameObject.SetActive(true);
+                    continueButton.onClick.RemoveAllListeners();
+                    continueButton.onClick.AddListener(AdvanceDialogue);
+                }
             }
             else
             {
                 for (int i = 0; i < node.options.Count; i++)
                 {
+                    // SAFETY CHECK: Ensure button exists
+                    if (i >= choiceButtons.Count || choiceButtons[i] == null)
+                    {
+                        Debug.LogWarning($"Choice button at index {i} is missing.");
+                        continue;
+                    }
+
                     int capturedIndex = i;
                     Button btn = choiceButtons[i];
+                    DialogueOption option = node.options[i];
 
                     btn.gameObject.SetActive(true);
                     btn.interactable = true;
-                    btn.GetComponentInChildren<TextMeshProUGUI>().text = node.options[i].choiceText;
+
+                    // SAFETY CHECK: Make sure there's a TextMeshProUGUI in children
+                    var textComponent = btn.GetComponentInChildren<TextMeshProUGUI>();
+                    if (textComponent != null)
+                    {
+                        textComponent.text = option.choiceText;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No TextMeshProUGUI found on button {btn.name}");
+                    }
 
                     btn.onClick.RemoveAllListeners();
                     btn.onClick.AddListener(() => OnChoiceSelected(capturedIndex));
@@ -76,6 +143,7 @@ public class DialogueManager : MonoBehaviour
             }
         }));
     }
+
 
     void OnChoiceSelected(int choiceIndex)
     {
@@ -122,15 +190,21 @@ public class DialogueManager : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    void AdvanceDialogue()
+    public void AdvanceDialogue()
     {
-        foreach (var button in choiceButtons)
+        if (isTyping) return;
+
+        if (choiceButtons != null)
         {
-            button.gameObject.SetActive(false);
-            button.onClick.RemoveAllListeners();
-            button.interactable = false;
+            foreach (var button in choiceButtons)
+            {
+                button.gameObject.SetActive(false);
+                button.onClick.RemoveAllListeners();
+                button.interactable = false;
+            }
         }
 
+        if (continueButton != null)
         continueButton.gameObject.SetActive(false);
 
         currentNodeIndex++;
@@ -143,20 +217,36 @@ public class DialogueManager : MonoBehaviour
 
     void EndScene()
     {
-        dialogueText.text = "Eziekel looks to the horizon. One last visit to the manor...";
+        string sceneName = SceneManager.GetActiveScene().name;
 
-        foreach (var button in choiceButtons)
+        if (GameHandler.Instance != null)
         {
-            button.gameObject.SetActive(false);
-            button.onClick.RemoveAllListeners();
-            button.interactable = false;
+            GameHandler.Instance.MarkDialoguePlayed(sceneName);
         }
 
-        continueButton.gameObject.SetActive(true);
-        continueButton.onClick.RemoveAllListeners();
-        continueButton.onClick.AddListener(() =>
+        if (deactivateAtEnd)
+        gameObject.SetActive(false);
+
+        //dialogueText.text = "Eziekel looks to the horizon. One last visit to the manor...";
+        dialogueText.text = "";
+
+        if (choiceButtons != null) {
+            foreach (var button in choiceButtons)
+            {
+                button.gameObject.SetActive(false);
+                button.onClick.RemoveAllListeners();
+                button.interactable = false;
+            }
+        }
+
+        if (continueButton != null)
         {
-            SceneManager.LoadScene("IntroScene");
-        });
+            continueButton.gameObject.SetActive(true);
+            continueButton.onClick.RemoveAllListeners();
+            continueButton.onClick.AddListener(() =>
+            {
+                SceneManager.LoadScene("IntroScene");
+            });
+        }
     }
 }

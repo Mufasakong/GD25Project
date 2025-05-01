@@ -32,9 +32,12 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 animInput = movementInput.normalized;
 
-        animator.SetFloat("MoveX", animInput.x);
-        animator.SetFloat("MoveY", animInput.y);
-        animator.SetBool("IsMoving", animInput.sqrMagnitude > 0.01f);
+        if (animator != null)
+        {
+            animator.SetFloat("MoveX", animInput.x);
+            animator.SetFloat("MoveY", animInput.y);
+            animator.SetBool("IsMoving", animInput.sqrMagnitude > 0.01f);
+        }
 
         if (platformerMode)
         {
