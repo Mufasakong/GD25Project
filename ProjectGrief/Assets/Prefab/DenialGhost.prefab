@@ -983,7 +983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5598255210091678388
 Transform:
   m_ObjectHideFlags: 0
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e393e3734073ea942a80e42162d13aa3, type: 2}
   - {fileID: 11400000, guid: 5e8b16001f68ba446a52d84cd385b75d, type: 2}
   rageTimelines: []
-  maxHealth: 50
+  maxHealth: 10
   rageMultiplier: 1.2
   enemyName: Denial Ghost
 --- !u!320 &5656046331350108282
