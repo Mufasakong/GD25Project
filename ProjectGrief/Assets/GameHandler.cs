@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameHandler : MonoBehaviour
 {
     public static GameHandler Instance;
+    public static event Action OnGhostsCaptured;
+    public static event Action OnAllGhostsCaptured;
 
     private Enemy currentEnemy;
+    public int ghostsRemaining = 5;
 
     private void OnEnable()
     {
@@ -77,5 +80,23 @@ public class GameHandler : MonoBehaviour
                 Instantiate(prefab);
             }
         }
+    }
+
+    public void OnGhostCaptured()
+    {
+        ghostsRemaining--;
+        OnGhostsCaptured?.Invoke();
+        Debug.Log("Ghost captured! Remaining: " + ghostsRemaining);
+
+        if (ghostsRemaining <= 0)
+        {
+            HandleAllGhostsCaptured();
+        }
+    }
+
+    private void HandleAllGhostsCaptured()
+    {
+        Debug.Log("All ghosts captured! The painting is restored.");
+        OnAllGhostsCaptured?.Invoke();
     }
 }
